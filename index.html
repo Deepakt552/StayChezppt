@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayChez - Investor Pitch Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #022c54;
+            --secondary-color: #0a4d8c;
+            --accent-color: #e6f3ff;
+            --text-color: #333;
+            --light-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary-color);
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(2, 44, 84, 0.85);
+            z-index: 1;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.6s ease-out;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .slide-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: auto;
+            z-index: 3;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .slide h2 {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .slide h3 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .slide p {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(2, 44, 84, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(2, 44, 84, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, #e6f3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .problem-list, .solution-list, .competitive-list {
+            text-align: left;
+            margin: 30px 0;
+            list-style: none;
+        }
+
+        .problem-list li, .solution-list li, .competitive-list li {
+            font-size: 1.3rem;
+            margin: 20px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .problem-list li::before,
+        .solution-list li::before,
+        .competitive-list li::before {
+            position: absolute;
+            left: 0;
+            font-size: 1.4rem;
+        }
+
+        .problem-list li::before {
+            content: "⚠️";
+        }
+
+        .solution-list li::before {
+            content: "✨";
+        }
+
+        .competitive-list li::before {
+            content: "🎯";
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(2, 44, 84, 0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(2, 44, 84, 0.3);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: var(--light-text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .image-container {
+            margin: 30px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(2, 44, 84, 0.15);
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .team-section {
+            background: var(--accent-color);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(2, 44, 84, 0.2);
+        }
+
+        .cta-section h3 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .cta-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .cta-section p {
+            color: white;
+            font-size: 1.3rem;
+            line-height: 1.7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: var(--accent-color);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: left;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(2, 44, 84, 0.1);
+            height: 100%;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(2, 44, 84, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .revenue-model {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .revenue-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(2, 44, 84, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .revenue-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .revenue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(2, 44, 84, 0.2);
+        }
+
+        .revenue-card h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .revenue-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h1>StayChez</h1>
+            <p class="tagline">"A place that feels like home"</p>
+            <h3>Student-First Accommodation Platform</h3>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80" alt="Modern Student Housing" class="slide-image">
+            </div>
+            <div style="margin-top: 40px;">
+                <p><strong>Founder:</strong> Akshat Mishra</p>
+                <p><strong>Based in:</strong> Prayagraj, India</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>The Problem We're Solving</h2>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=1200&q=80" alt="Student Housing Challenges" class="slide-image">
+            </div>
+            <ul class="problem-list">
+                <li><strong>Unorganized Market:</strong> Unsafe, overpriced, poorly maintained PGs</li>
+                <li><strong>Lack of Transparency:</strong> No verified listings or standardized pricing</li>
+                <li><strong>Stressful Relocation:</strong> Days wasted navigating fake listings and agents</li>
+                <li><strong>No Support System:</strong> Students have nowhere to escalate issues</li>
+                <li><strong>Inconsistent Standards:</strong> No uniformity in facilities or cleanliness</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Market Opportunity -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Massive Market Opportunity</h2>
+          
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">₹8000+ Cr</div>
+                    <div class="stat-label">Annual PG/Hostel Market in Tier 2/3 Cities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2-3 Lakh</div>
+                    <div class="stat-label">Students in Prayagraj Annually</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3-4 Lakh</div>
+                    <div class="stat-label">Employees Moving to Prayagraj</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹3K-30K</div>
+                    <div class="stat-label">Monthly Rent Range</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Our Solution -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>StayChez Solution</h2>
+           
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>Verified Listings</h3>
+                    <p>Every property thoroughly inspected and verified</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Standardized Amenities</h3>
+                    <p>Consistent quality across all accommodations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Transparent Pricing</h3>
+                    <p>No hidden costs or surprise charges</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Competitive Advantage -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Why StayChez Wins</h2>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Competitive Advantage" class="slide-image">
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Local Expertise</h3>
+                    <p>Deep understanding of tier-2 city dynamics</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Student Focus</h3>
+                    <p>Tailored specifically for student needs</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Service Guarantee</h3>
+                    <p>24/7 support and issue resolution</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Business Model -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Revenue Model</h2>
+            <div class="revenue-model">
+                <div class="revenue-card">
+                    <h3>Commission</h3>
+                    <div class="stat-number">15%</div>
+                    <p>From property owners for 3 months</p>
+                </div>
+                <div class="revenue-card">
+                    <h3>Booking Fee</h3>
+                    <div class="stat-number">₹199</div>
+                    <p>One-time fee from students after booking</p>
+                </div>
+                <div class="revenue-card">
+                    <h3>Services</h3>
+                    <div class="stat-number">10-20%</div>
+                    <p>Commission on laundry, food, transport partnerships</p>
+                </div>
+            </div>
+            <p style="font-weight: 600; font-size: 1.5rem; margin-top: 20px;"><strong>Low CAPEX, High Scalability Model</strong> - Partner with existing PG owners rather than owning properties</p>
+        </div>
+
+        <!-- Slide 7: Go-to-Market Strategy -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Go-to-Market Strategy</h2>
+            <div style="text-align: left;">
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3>Phase 1 - Prayagraj Launch</h3>
+                    <p>• Partner with 50+ PG owners in key areas<br>
+                    • Sign student leaders as brand ambassadors<br>
+                    • Hyperlocal digital campaigns + offline presence</p>
+                </div>
+                <div style="background: rgba(118, 75, 162, 0.1); padding: 25px; border-radius: 15px;">
+                    <h3>Phase 2 - Tech & Expansion</h3>
+                    <p>• Launch full-featured app with virtual tours<br>
+                    • Instagram content strategy for maximum reach<br>
+                    • Expand to 3-4 similar education hubs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Target Expansion -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Expansion Roadmap</h2>
+            <p style="font-size: 1.6rem; font-weight: 500; margin-bottom: 30px; color: var(--secondary-color);">Strategic expansion to education-centric tier-2 cities</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 style="color: white; margin-bottom: 10px; font-size: 1.8rem;">Phase 1</h3>
+                    <p style="color: white; font-size: 1.4rem; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Prayagraj<br>(Current Focus)</p>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: white; margin-bottom: 10px; font-size: 1.8rem;">Phase 2</h3>
+                    <p style="color: white; font-size: 1.4rem; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Varanasi, Lucknow<br>Kanpur, Aligarh</p>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: white; margin-bottom: 10px; font-size: 1.8rem;">Phase 3</h3>
+                    <p style="color: white; font-size: 1.4rem; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Gorakhpur, Agra<br>Mathura, Ayodhya</p>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: white; margin-bottom: 10px; font-size: 1.8rem;">Phase 4</h3>
+                    <p style="color: white; font-size: 1.4rem; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Noida, Ghaziabad<br>Chitrakoot & more</p>
+                </div>
+            </div>
+            <div style="margin-top: 40px; padding: 20px; background: var(--accent-color); border-radius: 15px; text-align: center;">
+                <p style="font-weight: 600; font-size: 1.5rem; color: var(--primary-color);">Targeting 10+ cities within 3 years of operation</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Future Vision -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Future Add-ons & Vision</h2>
+            <h3>Beyond Student Accommodation</h3>
+            <div style="text-align: left; margin: 30px 0;">
+                <ul class="solution-list">
+                    <li><strong>Hotels:</strong> Short-term stays for visitors and tourists</li>
+                    <li><strong>Commercial Spaces:</strong> Shops and office rentals</li>
+                    <li><strong>Residential Properties:</strong> Family accommodations</li>
+                    <li><strong>Real Estate Services:</strong> Full property ecosystem</li>
+                </ul>
+            </div>
+            <div class="cta-section">
+                <h3>Our Vision</h3>
+                <p>To become THE leading accommodation platform in tier-2 and tier-3 Indian cities, offering trusted living spaces backed by local understanding and comprehensive services.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Traction & Validation -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Early Traction & Validation</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">PG Partners Ready to Onboard</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Deep</div>
+                    <div class="stat-label">Local Market Knowledge</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Strong</div>
+                    <div class="stat-label">Coaching Institute Networks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Proven</div>
+                    <div class="stat-label">Demand Validation</div>
+                </div>
+            </div>
+            <p><strong>Market Validation:</strong> Personal experience and extensive research in Prayagraj's student housing market confirms massive unmet demand for organized, affordable accommodation solutions.</p>
+        </div>
+
+        <!-- Slide 11: Team -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Team</h2>
+            <div class="team-section" style="text-align: center;">
+                <h3 style="text-align: left; margin-left: 20px;">Akshat Mishra - Founder</h3>
+                <p style="margin: 20px auto; font-size: 1.2rem; text-align: left; max-width: 80%;">
+                    ✅ Deep understanding of Prayagraj student market<br>
+                    ✅ Strong networks in coaching and university ecosystem<br>
+                    ✅ First-hand experience with student accommodation challenges<br>
+                    ✅ Local market insights and relationships
+                </p>
+            </div>
+            <p><strong>Key Strengths:</strong> Local presence, student community connections, and deep understanding of tier-2 city dynamics gives StayChez significant competitive advantage.</p>
+        </div>
+
+        <!-- Slide 12: Investment Ask -->
+        <div class="slide">
+            <img src="logo.jpeg" alt="StayChez Logo" class="slide-logo">
+            <h2>Investment Opportunity</h2>
+          
+            <div class="feature-grid" style="margin-top: 30px;">
+                <div class="feature-card" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+                    <h3 style="color: white;">First-mover Advantage</h3>
+                    <p style="color: rgba(255,255,255,0.9);">Leading the organized student housing revolution</p>
+                </div>
+                <div class="feature-card" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+                    <h3 style="color: white;">Scalable Model</h3>
+                    <p style="color: rgba(255,255,255,0.9);">Asset-light business with high growth potential</p>
+                </div>
+                <div class="feature-card" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+                    <h3 style="color: white;">Strong Foundation</h3>
+                    <p style="color: rgba(255,255,255,0.9);">Established partnerships and market validation</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px; padding: 20px; background: var(--accent-color); border-radius: 15px; text-align: center;">
+                <h3 style="color: var(--primary-color);">Ready to Scale with Us?</h3>
+                <p style="font-size: 1.6rem; font-weight: 600; color: var(--secondary-color);">Contact: akshat@staycehz.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide === totalSlides - 1) return;
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            if (currentSlide === 0) return;
+            showSlide(currentSlide - 1);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>
